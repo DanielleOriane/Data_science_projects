@@ -40,7 +40,7 @@ async def predict(file: UploadFile = File(...)):
 
     #return {"Class": predicted_class,
     #       "Confidence": confidence}
-    return f"{predicted_class} (Confidence: {confidence}%)"
+    return f"{predicted_class} cell (Confidence: {confidence}%)"
 
 
 def read_image(image):
