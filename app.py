@@ -8,13 +8,13 @@ from io import BytesIO
 from PIL import Image
 import tensorflow as tf
 from tensorflow.keras.models import load_model
-from fastapi.responses import FileResponse
+
 
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
-favicon_path = 'favicon.ico'
+
 
 model = load_model("Saved_models_malaria/model_vgg19.h5")
 class_names = ['Parasitized', 'Uninfected']
@@ -24,9 +24,6 @@ input_size = [224, 224]
 async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-@app.get('/favicon.ico', include_in_schema=False)
-async def favicon():
-    return FileResponse(favicon_path)
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
